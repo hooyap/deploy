@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  cadvisor:
+    image: linuxkit/cadvisor:6ae4b50f8279692c459bccd0003066d22bd558ce
+    deploy:
+      mode: global  # 指定服务在每个节点上运行, swarm 才有用？
+    networks:
+      - metrics_net
+    ports:
+      - 9080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg  
+    privileged: true
+
+  dcgm_exporter:
+    image: docker.io/nvidia/dcgm-exporter:latest
+    command: ["-f", "/etc/dcgm-exporter/dcp-metrics-included.csv"]
+    ports:
+      - 9400:9400
+    configs:
+      - source: dcgm_config
+        target: /etc/dcgm-exporter/dcp-metrics-included.csv
+    environment:
+      - DCGM_EXPORTER_LISTEN=':9400'
+    deploy:
+      mode: global
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
+            
+networks:
+    metrics_net:
+        external: true
