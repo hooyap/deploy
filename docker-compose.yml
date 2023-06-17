@@ -3,8 +3,15 @@ version: '3.8'
 services:
   cadvisor:
     image: zcube/cadvisor:v0.45.0
+    command: ["-disable_metrics", "advtcp,cpu_topology,cpuset,hugetlb,memory_numa,process,referenced_memory,resctrl,sched,tcp,udp,cpuLoad,disk,diskIO,percpu,perf_event"]
     deploy:
       mode: global  # 指定服务在每个节点上运行, swarm 才有用？
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
     networks:
       - metrics_net
     ports:
