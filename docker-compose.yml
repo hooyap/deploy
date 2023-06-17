@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   cadvisor:
-    image: linuxkit/cadvisor:6ae4b50f8279692c459bccd0003066d22bd558ce
+    image: zcube/cadvisor:v0.45.0
     deploy:
       mode: global  # 指定服务在每个节点上运行, swarm 才有用？
     networks:
