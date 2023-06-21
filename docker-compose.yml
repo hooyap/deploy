@@ -36,6 +36,7 @@ services:
         target: /etc/dcgm-exporter/dcp-metrics-included.csv
     environment:
       - DCGM_EXPORTER_LISTEN=:9400
+    privileged: true
     deploy:
       mode: global
       resources:
