@@ -4,9 +4,6 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
 
-basic_auth_users:
-    admin: $2b$12$RKZbDpF/gWuoyJ1UnQ9m/.fN3c95WJfxQr9xPO8WTgmFU5bTanCH2
-
 # Alertmanager configuration
 alerting:
   alertmanagers:
