@@ -3,6 +3,7 @@ version: '3.8'
 services:
   prometheus:
     image: prom/prometheus:latest
+    command: [/bin/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.config.file=/etc/prometheus/prometheus_web.yml --web.console.libraries=/usr/share/prometheus/console_libraries --web.console.templates=/usr/share/prometheus/consoles]
     ports:
       - 9090:9090
     volumes:
@@ -10,6 +11,8 @@ services:
     configs:
       - source: prom_config
         target: /etc/prometheus/prometheus.yml
+      - source: prom_web_config
+        target: /etc/prometheus/prometheus_web.yml
 
   grafana:
     image: grafana/grafana:latest
@@ -20,3 +23,5 @@ services:
 configs:
   prom_config:
     file: ./prometheus.yml
+  prom_web_config:
+    file: ./prometheus_web.yml
