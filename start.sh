@@ -19,8 +19,11 @@
 # install monitor
 sudo cp node_exporter /usr/bin/
 sudo cp node_exporter.service /etc/systemd/system/
+sudo cp docker-compose.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl start node_exporter.service
 sudo systemctl enable node_exporter.service
+sudo systemctl start docker-compose.service
+sudo systemctl enable docker-compose.service
 docker network create --scope local metrics_net
 docker compose up -d

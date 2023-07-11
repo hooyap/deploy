@@ -1,0 +1,9 @@
+[Unit]
+Description=My Docker Compose project
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker compose -f /etc/deploy/docker-compose.yml up -d
+
+[Install]
+WantedBy=multi-user.target

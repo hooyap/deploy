@@ -27,3 +27,43 @@ scrape_configs:
 
     static_configs:
       - targets: ["localhost:9090"]
+
+  # - job_name: "prometheus"
+
+  #   # metrics_path defaults to '/metrics'
+  #   # scheme defaults to 'http'.
+
+  #   static_configs:
+  #     - targets: ["0.0.0.0:9090", "106.15.4.198:8099"]
+  #       labels:
+  #         group: 'test'
+
+  - job_name: 'cadvisor'
+    scrape_interval: 60s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ["104.171.202.205:9080", "117.161.43.36:9080", "117.161.43.39:9080", "49.233.53.19:8090"]
+        labels:
+          group: 'cadvisor'
+
+
+  - job_name: "node"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["223.109.239.21:9100", "36.134.168.157:9100", "36.134.168.102:9100", "223.109.239.24:9100", "104.171.202.205:9100", "117.161.43.36:9100", "117.161.43.39:9100", "49.233.53.19:8100"]
+
+
+  - job_name: "gpu"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["223.109.239.21:9400", "36.134.168.157:9400", "36.134.168.102:9400", "223.109.239.24:9400", "104.171.202.205:9400", "117.161.43.36:9400", "117.161.43.39:9400", "49.233.53.19:8400"]
+
+  - job_name: "app"
+    static_configs:
+      - targets: ["49.233.53.19:9079", "49.233.53.19:9080", "49.233.53.19:9081"]
